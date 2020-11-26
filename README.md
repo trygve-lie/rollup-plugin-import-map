@@ -31,7 +31,7 @@ export default {
 
 ## Description
 
-This plugin transform import specifiers in ESM based on a mapping defined in one or multiple [import map(s)](https://github.com/WICG/import-maps#multiple-import-map-support). Import maps is a suggested specification to be implemented in browsers but they can be used to apply mapping ahead of time. This module does so.
+This plugin transforms import specifiers in ESM based on mappings defined in one or more [import maps](https://github.com/WICG/import-maps#multiple-import-map-support). Import maps are an emerging specification yet to be implemented in browsers, however this module can be used to apply import maps ahead of time.
 
 One use case for import maps is to transform ESM bare import statements to an import statement which is an absolute URL to the same module on a CDN.
 
@@ -91,7 +91,7 @@ export default {
 };
 ```
 
-When an array of import maps is provided and multiple import maps is set of map the same import specifier, the last import specifies in the array will be the one which is applied during transformation.
+When an array of import maps is provided and multiple import maps use the same import specifier, the last import specifier in the array will be the one which is applied.
 
 ## Note on the rollup external option
 
