@@ -6,8 +6,8 @@
  */
 'use strict'
 exports[`test/plugin.js TAP plugin() - array of import map maps - should replace import statements with CDN URLs > non bare imports 1`] = `
-import { firstElement } from 'https://cdn.pika.dev/something/v666';
-import { html } from 'https://cdn.pika.dev/lit-element/v2';
+import { firstElement } from 'https://cdn.eik.dev/something/v666';
+import { html } from 'https://cdn.eik.dev/lit-element/v2';
 
 function replaceElement(target, element) {
     target.replaceWith(element);
@@ -70,7 +70,7 @@ start();
 `
 
 exports[`test/plugin.js TAP plugin() - basic module - should replace lit-element with CDN URL > basic example 1`] = `
-import { html } from 'https://cdn.pika.dev/lit-element/v2';
+import { html } from 'https://cdn.eik.dev/lit-element/v2';
 
 const render = (world) => {
     return html\`<p>Hello \${world}!</p>\`;
@@ -147,8 +147,8 @@ start();
 `
 
 exports[`test/plugin.js TAP plugin() - import map maps non bare imports - should replace import statement with CDN URL > non bare imports 1`] = `
-import { firstElement } from 'https://cdn.pika.dev/something/v666';
-import { html } from 'https://cdn.pika.dev/lit-element/v2';
+import { firstElement } from 'https://cdn.eik.dev/something/v666';
+import { html } from 'https://cdn.eik.dev/lit-element/v2';
 
 function replaceElement(target, element) {
     target.replaceWith(element);
@@ -211,9 +211,9 @@ start();
 `
 
 exports[`test/plugin.js TAP plugin() - import specifier is a interior package path - should replace with CDN URL > interior package path 1`] = `
-import { html } from 'https://cdn.pika.dev/lit-html/v2';
-import { css } from 'https://cdn.pika.dev/lit-html/v1';
-import { LitElement } from 'https://cdn.pika.dev/lit-element/v2';
+import { html } from 'https://cdn.eik.dev/lit-html/v2';
+import { css } from 'https://cdn.eik.dev/lit-html/v1';
+import { LitElement } from 'https://cdn.eik.dev/lit-element/v2';
 
 class Inner extends LitElement {
     static get styles() {
@@ -230,7 +230,7 @@ export default Inner;
 `
 
 exports[`test/plugin.js TAP plugin() - simple module - should replace lit-element with CDN URL > simple example 1`] = `
-import { html } from 'https://cdn.pika.dev/lit-element/v2';
+import { html } from 'https://cdn.eik.dev/lit-element/v2';
 
 function replaceElement(target, element) {
     target.replaceWith(element);
