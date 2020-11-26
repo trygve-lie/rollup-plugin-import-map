@@ -38,7 +38,7 @@ tap.test('plugin() - basic module - should replace lit-element with CDN URL', as
         },
         plugins: [plugin({
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2'
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
         })],
     }
@@ -58,7 +58,7 @@ tap.test('plugin() - simple module - should replace lit-element with CDN URL', a
         },
         plugins: [plugin({
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2'
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
         })],
     }
@@ -78,8 +78,8 @@ tap.test('plugin() - import map maps non bare imports - should replace import st
         },
         plugins: [plugin({
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
-                './utils/dom.js': 'https://cdn.pika.dev/something/v666'
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2',
+                './utils/dom.js': 'https://cdn.eik.dev/something/v666'
             }
         })],
     }
@@ -119,9 +119,9 @@ tap.test('plugin() - import specifier is a interior package path - should replac
         },
         plugins: [plugin({
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2',
-                'lit-html/lit-html': 'https://cdn.pika.dev/lit-html/v2',
-                'lit-html': 'https://cdn.pika.dev/lit-html/v1',
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2',
+                'lit-html/lit-html': 'https://cdn.eik.dev/lit-html/v2',
+                'lit-html': 'https://cdn.eik.dev/lit-html/v1',
             }
         })],
     }
@@ -158,12 +158,12 @@ tap.test('plugin() - array of import map maps - should replace import statements
         },
         plugins: [plugin([{
             imports: {
-                'lit-element': 'https://cdn.pika.dev/lit-element/v2'
+                'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
         },
         {
             imports: {
-                './utils/dom.js': 'https://cdn.pika.dev/something/v666'
+                './utils/dom.js': 'https://cdn.eik.dev/something/v666'
             }
         }])],
     }
