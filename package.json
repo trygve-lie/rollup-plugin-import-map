@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-import-map",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Rollup plugin to apply import map mappings to a build",
   "main": "lib/plugin.js",
   "type": "module",
@@ -22,7 +22,15 @@
     "Modules",
     "ECMAScript"
   ],
-  "author": "Trygve Lie",
+  "author": {
+    "name": "Trygve Lie",
+    "email": "post@trygve-lie.com",
+    "url": "https://github.com/trygve-lie"
+  },
+  "contributors": [
+    {"name":"Keith Cirkel","url":"https://github.com/keithamus"},
+    {"name":"Richard Walker","url":"https://github.com/digitalsadhu"}
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/trygve-lie/rollup-plugin-import-map/issues"
