@@ -1,4 +1,4 @@
-import plugin from '../lib/plugin.js';
+import { rollupImportMapPlugin } from '../lib/plugin.js';
 import { rollup } from 'rollup';
 import path from 'path';
 import url from 'url';
@@ -19,7 +19,7 @@ tap.test('plugin() - target is refered to in external - should reject process', 
     const options = {
         input: simple,
         external: ['foo'],
-        plugins: [plugin({
+        plugins: [rollupImportMapPlugin({
             imports: {
                 'foo': 'http://not.a.host.com'
             }
@@ -36,7 +36,7 @@ tap.test('plugin() - basic module - should replace lit-element with CDN URL', as
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [plugin({
+        plugins: [rollupImportMapPlugin({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
@@ -56,7 +56,7 @@ tap.test('plugin() - simple module - should replace lit-element with CDN URL', a
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [plugin({
+        plugins: [rollupImportMapPlugin({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
@@ -76,7 +76,7 @@ tap.test('plugin() - import map maps non bare imports - should replace import st
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [plugin({
+        plugins: [rollupImportMapPlugin({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2',
                 './utils/dom.js': 'https://cdn.eik.dev/something/v666'
@@ -97,7 +97,7 @@ tap.test('plugin() - import map maps address to a relative path - should replace
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [plugin({
+        plugins: [rollupImportMapPlugin({
             imports: {
                 'lit-element': './lit-element/v2',
             }
@@ -117,7 +117,7 @@ tap.test('plugin() - import specifier is a interior package path - should replac
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [plugin({
+        plugins: [rollupImportMapPlugin({
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2',
                 'lit-html/lit-html': 'https://cdn.eik.dev/lit-html/v2',
@@ -139,7 +139,7 @@ tap.test('plugin() - import map maps address to a bare importer - should throw',
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [plugin({
+        plugins: [rollupImportMapPlugin({
             imports: {
                 'lit-element': 'lit-element/v2',
             }
@@ -156,7 +156,7 @@ tap.test('plugin() - array of import map maps - should replace import statements
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [plugin([{
+        plugins: [rollupImportMapPlugin([{
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }

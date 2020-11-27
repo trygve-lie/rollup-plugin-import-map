@@ -2,13 +2,23 @@
   "name": "rollup-plugin-import-map",
   "version": "1.0.0",
   "description": "Rollup plugin to apply import map mappings to a build",
-  "main": "lib/plugin.js",
   "type": "module",
+  "main": "./dist/plugin.cjs",
+  "exports": {
+    "import": "./lib/plugin.js",
+    "require": "./dist/plugin.cjs"
+  },
+  "files": [
+    "lib",
+    "dist"
+  ],
   "scripts": {
     "test": "tap --no-esm test/*.js --no-coverage",
     "test:snapshot": "TAP_SNAPSHOT=1 tap --no-esm test/*.js --no-coverage",
     "lint": "eslint . --ext=js",
-    "lint:fix": "eslint . --fix --ext=js"
+    "lint:fix": "eslint . --fix --ext=js",
+    "prepare": "npm run -s build",
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",

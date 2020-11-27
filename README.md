@@ -11,7 +11,7 @@ $ npm install rollup-plugin-import-map
 ## Usage
 
 ```js
-import importMapPlugin from "rollup-plugin-import-map";
+import { importMapPlugin } from "rollup-plugin-import-map";
 
 const map = {
     imports: {
