@@ -3,5 +3,5 @@ export default {
     external: ['node-fetch', 'url'],
     output: [
         { file: 'dist/plugin.cjs', format: 'cjs' },
-    ]
+    ],
 };
