@@ -11,7 +11,7 @@ $ npm install rollup-plugin-import-map
 ## Usage
 
 ```js
-import importMapPlugin from "rollup-plugin-import-map";
+import { rollupImportMapPlugin } from "rollup-plugin-import-map";
 
 const map = {
     imports: {
@@ -21,7 +21,7 @@ const map = {
 
 export default {
   input: "source/main.js",
-  plugins: [importMapPlugin(map)],
+  plugins: [rollupImportMapPlugin(map)],
   output: {
     file: "build.js",
     format: "esm",
@@ -66,7 +66,7 @@ One import map:
 ```js
 export default {
   input: "source/main.js",
-  plugins: [importMapPlugin({ ... })],
+  plugins: [rollupImportMapPlugin({ ... })],
   output: {
     file: "build.js",
     format: "esm",
@@ -79,7 +79,7 @@ Array of import maps:
 ```js
 export default {
   input: "source/main.js",
-  plugins: [importMapPlugin([
+  plugins: [rollupImportMapPlugin([
       { ... },
       { ... },
       { ... },
@@ -105,7 +105,7 @@ export default {
   input: "source/main.js",
   external: ["lit-element"],
   plugins: [
-    importMapPlugin({
+    rollupImportMapPlugin({
       imports: {
         'lit-element': 'https://cdn.eik.dev/lit-element/v2'
       },
