@@ -1,13 +1,14 @@
 import { rollupImportMapPlugin } from '../lib/plugin.js';
+import { __dirname } from './dirname.js';
 import { rollup } from 'rollup';
-import path from 'path';
-import url from 'url';
 import tap from 'tap';
 
-const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
-const simple = `${__dirname}/../modules/simple/main.js`;
-const basic = `${__dirname}/../modules/basic/main.js`;
-const file = `${__dirname}/../modules/file/main.js`;
+const simple = `${__dirname}/../fixtures/modules/simple/main.js`;
+const basic = `${__dirname}/../fixtures/modules/basic/main.js`;
+const file = `${__dirname}/../fixtures/modules/file/main.js`;
+const map = `${__dirname}/../fixtures/simple.map.json`;
+const err = `${__dirname}/../fixtures/faulty.map.json`;
+
 
 /*
  * When running tests on Windows, the output code get some extra \r on each line.
@@ -172,5 +173,69 @@ tap.test('plugin() - array of import map maps - should replace import statements
     const { output } = await bundle.generate({ format: 'esm' });
 
     t.matchSnapshot(clean(output[0].code), 'non bare imports');
+    t.end();
+});
+
+tap.test('plugin() - input is a filepath to a map file - should load map and replace import statements with CDN URLs', async (t) => {
+    const options = {
+        input: simple,
+        onwarn: (warning, warn) => {
+            // Supress logging
+        },
+        plugins: [rollupImportMapPlugin(map)],
+    }
+
+    const bundle = await rollup(options);
+    const { output } = await bundle.generate({ format: 'esm' });
+
+    t.matchSnapshot(clean(output[0].code), 'non bare imports');
+    t.end();
+});
+
+tap.test('plugin() - input is a filepath to a map file and an inline map - should load map and replace import statements with CDN URLs', async (t) => {
+    const options = {
+        input: simple,
+        onwarn: (warning, warn) => {
+            // Supress logging
+        },
+        plugins: [rollupImportMapPlugin([
+        map,
+        {
+            imports: {
+                './utils/dom.js': 'https://cdn.eik.dev/something/v666'
+            }
+        }])],
+    }
+
+    const bundle = await rollup(options);
+    const { output } = await bundle.generate({ format: 'esm' });
+
+    t.matchSnapshot(clean(output[0].code), 'non bare imports');
+    t.end();
+});
+
+tap.test('plugin() - input is a filepath to a non existing map file - should throw', async (t) => {
+    const options = {
+        input: simple,
+        onwarn: (warning, warn) => {
+            // Supress logging
+        },
+        plugins: [rollupImportMapPlugin('./foo.map.json')],
+    }
+    
+    t.rejects(rollup(options), /ENOENT: no such file or directory, open 'foo.map.json'/);
+    t.end();
+});
+
+tap.test('plugin() - input is a filepath to a faulty map file - should throw', async (t) => {
+    const options = {
+        input: simple,
+        onwarn: (warning, warn) => {
+            // Supress logging
+        },
+        plugins: [rollupImportMapPlugin(err)],
+    }
+    
+    t.rejects(rollup(options), /Unexpected end of JSON input/);
     t.end();
 });

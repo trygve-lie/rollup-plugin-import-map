@@ -13,15 +13,9 @@ $ npm install rollup-plugin-import-map
 ```js
 import { rollupImportMapPlugin } from "rollup-plugin-import-map";
 
-const map = {
-    imports: {
-        'lit-element': 'https://cdn.eik.dev/lit-element/v2'
-    }
-};
-
 export default {
   input: "source/main.js",
-  plugins: [rollupImportMapPlugin(map)],
+  plugins: [rollupImportMapPlugin('source/import-map.json')],
   output: {
     file: "build.js",
     format: "esm",
@@ -59,14 +53,14 @@ import * as lit from 'https://cdn.eik.dev/npm/lit-html/v1/lit-html.js'
 
 ## API
 
-The API of the plugin is fairly simple. The plugin can take one import map or an array of import maps.
+The API of the plugin is fairly simple. The plugin can take a absolute path to a import map or an import map as an object directly. Values can be passed on as a single value or an Array of multple values.
 
-One import map:
+An absolute path to a import map file:
 
 ```js
 export default {
   input: "source/main.js",
-  plugins: [rollupImportMapPlugin({ ... })],
+  plugins: [rollupImportMapPlugin('source/import-map.json')],
   output: {
     file: "build.js",
     format: "esm",
@@ -74,15 +68,36 @@ export default {
 };
 ```
 
-Array of import maps:
+Absolute paths to multiple import map files:
 
 ```js
 export default {
   input: "source/main.js",
   plugins: [rollupImportMapPlugin([
-      { ... },
-      { ... },
-      { ... },
+      'source/import-map-a.json',
+      'source/import-map-b.json',
+      'source/import-map-c.json',
+  ])],
+  output: {
+    file: "build.js",
+    format: "esm",
+  },
+};
+```
+
+Mix of absolute paths to import map files and import maps provided as an object:
+
+```js
+export default {
+  input: "source/main.js",
+  plugins: [rollupImportMapPlugin([
+      'source/import-map-a.json',
+      {
+        "imports": {
+          "lit-html": "https://cdn.eik.dev/npm/lit-html/v1/lit-html.js",
+        }
+      },
+      'source/import-map-b.json',
   ])],
   output: {
     file: "build.js",
