@@ -3,11 +3,11 @@ import { __dirname } from './dirname.js';
 import { rollup } from 'rollup';
 import tap from 'tap';
 
-const simple = `${__dirname}/../fixtures/modules/simple/main.js`;
-const basic = `${__dirname}/../fixtures/modules/basic/main.js`;
-const file = `${__dirname}/../fixtures/modules/file/main.js`;
-const map = `${__dirname}/../fixtures/simple.map.json`;
-const err = `${__dirname}/../fixtures/faulty.map.json`;
+const simple = `${__dirname}/../../fixtures/modules/simple/main.js`;
+const basic = `${__dirname}/../../fixtures/modules/basic/main.js`;
+const file = `${__dirname}/../../fixtures/modules/file/main.js`;
+const map = `${__dirname}/../../fixtures/simple.map.json`;
+const err = `${__dirname}/../../fixtures/faulty.map.json`;
 
 
 /*
