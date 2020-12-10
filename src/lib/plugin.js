@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs/promises';
+import fs from 'fs';
 
 const isBare = (str) => {
     if (str.startsWith('/') || str.startsWith('./') || str.startsWith('../') || str.substr(0, 7) === 'http://' || str.substr(0, 8) === 'https://') {
@@ -30,7 +30,7 @@ const validate = (map, options) => Object.keys(map.imports).map((key) => {
 
 const fileReader = (pathname = '', options) => new Promise((resolve, reject) => {
     const filepath = path.normalize(pathname);
-    fs.readFile(filepath).then((file) => {
+    fs.promises.readFile(filepath).then((file) => {
         try {
             const obj = JSON.parse(file);
             resolve(validate(obj, options));

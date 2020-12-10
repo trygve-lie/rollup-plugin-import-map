@@ -1,7 +1,7 @@
 export default {
-    input: 'lib/plugin.js',
-    external: ['node-fetch', 'url'],
+    input: 'src/test/plugin.js',
+    external: ['rollup', 'path', 'tap', 'url', 'fs'],
     output: [
-        { file: 'dist/plugin.cjs', format: 'cjs' },
+        { dir: 'dist/', format: 'cjs', preserveModules: true },
     ],
 };
