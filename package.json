@@ -6,7 +6,7 @@
   "main": "./dist/lib/plugin.js",
   "exports": {
     "import": "./src/lib/plugin.js",
-    "require": "./dist/plugin.js"
+    "require": "./dist/lib/plugin.js"
   },
   "files": [
     "src/lib",
