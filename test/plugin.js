@@ -1,14 +1,12 @@
 import { rollupImportMapPlugin } from '../lib/plugin.js';
-import { __dirname } from './dirname.js';
 import { rollup } from 'rollup';
 import tap from 'tap';
 
-const simple = `${__dirname}/../../fixtures/modules/simple/main.js`;
-const basic = `${__dirname}/../../fixtures/modules/basic/main.js`;
-const file = `${__dirname}/../../fixtures/modules/file/main.js`;
-const map = `${__dirname}/../../fixtures/simple.map.json`;
-const err = `${__dirname}/../../fixtures/faulty.map.json`;
-
+const simple = new URL('../fixtures/modules/simple/main.js', import.meta.url).pathname;
+const basic = new URL('../fixtures/modules/basic/main.js', import.meta.url).pathname;
+const file = new URL('../fixtures/modules/file/main.js', import.meta.url).pathname;
+const map = new URL('../fixtures/simple.map.json', import.meta.url).pathname;
+const err = new URL('../fixtures/faulty.map.json', import.meta.url).pathname;
 
 /*
  * When running tests on Windows, the output code get some extra \r on each line.

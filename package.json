@@ -3,23 +3,18 @@
   "version": "2.2.0",
   "description": "Rollup plugin to apply import map mappings to a build",
   "type": "module",
-  "main": "./dist/lib/plugin.js",
-  "exports": {
-    "import": "./src/lib/plugin.js",
-    "require": "./dist/lib/plugin.js"
-  },
+  "main": "./lib/plugin.js",
   "files": [
-    "src/lib",
-    "dist/lib"
+    "lib",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
   "scripts": {
-    "test": "tap --no-esm src/test/*.js --no-coverage",
-    "test:compat": "tap --no-esm dist/test/*.js --no-coverage",
-    "test:snapshot": "TAP_SNAPSHOT=1 npm run -s build && tap --no-esm src/test/*.js dist/test/*.js --no-coverage",
-    "lint": "eslint . --ext=js",
-    "lint:fix": "eslint . --fix --ext=js",
-    "prepare": "npm run -s build",
-    "build": "rollup -c ./rollup.config.js"
+    "test": "tap",
+    "test:snapshot": "TAP_SNAPSHOT=1 tap",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -55,16 +50,12 @@
   "homepage": "https://github.com/trygve-lie/rollup-plugin-import-map#readme",
   "devDependencies": {
     "@semantic-release/changelog": "6.0.1",
-    "@semantic-release/commit-analyzer": "9.0.2",
     "@semantic-release/git": "10.0.1",
-    "@semantic-release/github": "8.0.4",
-    "@semantic-release/npm": "9.0.1",
-    "@semantic-release/release-notes-generator": "10.0.3",
-    "eslint": "7.32.0",
-    "eslint-config-airbnb-base": "14.2.1",
-    "eslint-plugin-import": "2.24.0",
-    "rollup": "2.40.0",
-    "semantic-release": "19.0.3",
-    "tap": "14.11.0"
+    "eslint": "8.26.0",
+    "eslint-config-airbnb-base": "15.0.0",
+    "eslint-plugin-import": "2.26.0",
+    "rollup": "3.2.3",
+    "semantic-release": "19.0.5",
+    "tap": "16.03.0"
   }
 }
