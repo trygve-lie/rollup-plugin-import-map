@@ -1,23 +1,6 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    "group:linters"
-  ],
-  "packageRules": [{
-    "depTypeList": ["dependencies"],
-    "automerge": true,
-    "major": {
-      "automerge": false
-    }
-  },
-  {
-    "depTypeList": ["devDependencies"],
-    "schedule": ["before 4am on monday"],
-    "commitMessage": "Dev dependency {{depName}} updated to version {{newValue}}",
-    "prTitle": "Dev dependency update: {{depName}}",
-    "automerge": true,
-    "major": {
-      "automerge": false
-    }
-  }]
+    "github>eik-lib/renovate-presets:sub-level-module"
+  ]
 }
