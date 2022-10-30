@@ -57,5 +57,9 @@
     "rollup": "3.2.3",
     "semantic-release": "19.0.5",
     "tap": "16.03.0"
+  },
+  "dependencies": {
+    "@import-maps/resolve": "1.0.1",
+    "deepmerge": "4.2.2"
   }
 }
