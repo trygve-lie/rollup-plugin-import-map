@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-import-map",
-  "version": "2.2.0",
+  "version": "4.0.0-next.1",
   "description": "Rollup plugin to apply import map mappings to a build",
   "type": "module",
   "main": "./lib/plugin.js",
