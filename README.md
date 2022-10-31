@@ -15,7 +15,7 @@ import { rollupImportMapPlugin } from "rollup-plugin-import-map";
 
 export default {
   input: "source/main.js",
-  plugins: [rollupImportMapPlugin('source/import-map.json')],
+  plugins: [rollupImportMapPlugin('https://cdn.eik.dev', 'source/import-map.json')],
   output: {
     file: "build.js",
     format: "esm",
@@ -53,14 +53,38 @@ import * as lit from 'https://cdn.eik.dev/npm/lit-html/v1/lit-html.js'
 
 ## API
 
-The API of the plugin is fairly simple. The plugin can take a absolute path to a import map or an import map as an object directly. Values can be passed on as a single value or an Array of multple values.
+The API of the plugin is fairly simple.
+
+```js
+import { rollupImportMapPlugin } from "rollup-plugin-import-map";
+
+rollupImportMapPlugin(baseURL = '', importMaps = []);
+```
+
+### baseURL
+
+Parsing and resolving import maps requires a base URL. This can be a legal URL as a string 
+
+```js
+rollupImportMapPlugin('https://cdn.eik.dev', importMaps = []);
+```
+
+or a an instance of the `URL` constructor:
+
+```js
+rollupImportMapPlugin(new URL('https://cdn.eik.dev'), importMaps = []);
+```
+
+### importMaps
+
+The plugin can take a absolute path to a import map or an import map as an object directly. Values can be passed on as a single value or an Array of multple values.
 
 An absolute path to a import map file:
 
 ```js
 export default {
   input: "source/main.js",
-  plugins: [rollupImportMapPlugin('source/import-map.json')],
+  plugins: [rollupImportMapPlugin('https://cdn.eik.dev', 'source/import-map.json')],
   output: {
     file: "build.js",
     format: "esm",
@@ -73,7 +97,7 @@ Absolute paths to multiple import map files:
 ```js
 export default {
   input: "source/main.js",
-  plugins: [rollupImportMapPlugin([
+  plugins: [rollupImportMapPlugin('https://cdn.eik.dev', [
       'source/import-map-a.json',
       'source/import-map-b.json',
       'source/import-map-c.json',
@@ -90,7 +114,7 @@ Mix of absolute paths to import map files and import maps provided as an object:
 ```js
 export default {
   input: "source/main.js",
-  plugins: [rollupImportMapPlugin([
+  plugins: [rollupImportMapPlugin('https://cdn.eik.dev', [
       'source/import-map-a.json',
       {
         "imports": {
@@ -120,7 +144,7 @@ export default {
   input: "source/main.js",
   external: ["lit-element"],
   plugins: [
-    rollupImportMapPlugin({
+    rollupImportMapPlugin('https://cdn.eik.dev', {
       imports: {
         'lit-element': 'https://cdn.eik.dev/lit-element/v2'
       },
@@ -135,7 +159,7 @@ export default {
 
 ## License
 
-Copyright (c) 2020 Trygve Lie
+Copyright (c) 2022 Trygve Lie
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
