@@ -1,5 +1,6 @@
 import { rollupImportMapPlugin } from '../lib/plugin.js';
 import { rollup } from 'rollup';
+import { URL } from 'node:url';
 import tap from 'tap';
 
 const simple = new URL('../fixtures/modules/simple/main.js', import.meta.url).pathname;
@@ -18,7 +19,7 @@ tap.test('plugin() - target is refered to in external - should reject process', 
     const options = {
         input: simple,
         external: ['foo'],
-        plugins: [rollupImportMapPlugin({
+        plugins: [rollupImportMapPlugin('http://localhost/', {
             imports: {
                 'foo': 'http://not.a.host.com'
             }
@@ -28,14 +29,13 @@ tap.test('plugin() - target is refered to in external - should reject process', 
     t.end();
 });
 
-
 tap.test('plugin() - basic module - should replace lit-element with CDN URL', async (t) => {
     const options = {
         input: basic,
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin({
+        plugins: [rollupImportMapPlugin('http://localhost/', {
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
@@ -49,13 +49,14 @@ tap.test('plugin() - basic module - should replace lit-element with CDN URL', as
     t.end();
 });
 
+
 tap.test('plugin() - simple module - should replace lit-element with CDN URL', async (t) => {
     const options = {
         input: simple,
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin({
+        plugins: [rollupImportMapPlugin('http://localhost/', {
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
@@ -75,7 +76,7 @@ tap.test('plugin() - import map maps non bare imports - should replace import st
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin({
+        plugins: [rollupImportMapPlugin('http://localhost/', {
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2',
                 './utils/dom.js': 'https://cdn.eik.dev/something/v666'
@@ -96,7 +97,7 @@ tap.test('plugin() - import map maps address to a relative path - should replace
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin({
+        plugins: [rollupImportMapPlugin('http://localhost/', {
             imports: {
                 'lit-element': './lit-element/v2',
             }
@@ -116,7 +117,7 @@ tap.test('plugin() - import specifier is a interior package path - should replac
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin({
+        plugins: [rollupImportMapPlugin('http://localhost/', {
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2',
                 'lit-html/lit-html': 'https://cdn.eik.dev/lit-html/v2',
@@ -132,30 +133,13 @@ tap.test('plugin() - import specifier is a interior package path - should replac
     t.end();
 });
 
-tap.test('plugin() - import map maps address to a bare importer - should throw', async (t) => {
-    const options = {
-        input: simple,
-        onwarn: (warning, warn) => {
-            // Supress logging
-        },
-        plugins: [rollupImportMapPlugin({
-            imports: {
-                'lit-element': 'lit-element/v2',
-            }
-        })],
-    }
-    
-    t.rejects(rollup(options), new Error('Import specifier can NOT be mapped to a bare import statement. Import specifier "lit-element" is being wrongly mapped to "lit-element/v2"'));
-    t.end();
-});
-
 tap.test('plugin() - array of import map maps - should replace import statements with CDN URLs', async (t) => {
     const options = {
         input: simple,
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin([{
+        plugins: [rollupImportMapPlugin('http://localhost/', [{
             imports: {
                 'lit-element': 'https://cdn.eik.dev/lit-element/v2'
             }
@@ -180,7 +164,7 @@ tap.test('plugin() - input is a filepath to a map file - should load map and rep
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin(map)],
+        plugins: [rollupImportMapPlugin('http://localhost/', map)],
     }
 
     const bundle = await rollup(options);
@@ -196,7 +180,7 @@ tap.test('plugin() - input is a filepath to a map file and an inline map - shoul
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin([
+        plugins: [rollupImportMapPlugin('http://localhost/', [
         map,
         {
             imports: {
@@ -218,7 +202,7 @@ tap.test('plugin() - input is a filepath to a non existing map file - should thr
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin('./foo.map.json')],
+        plugins: [rollupImportMapPlugin('http://localhost/', './foo.map.json')],
     }
     
     t.rejects(rollup(options), /ENOENT: no such file or directory, open 'foo.map.json'/);
@@ -231,9 +215,33 @@ tap.test('plugin() - input is a filepath to a faulty map file - should throw', a
         onwarn: (warning, warn) => {
             // Supress logging
         },
-        plugins: [rollupImportMapPlugin(err)],
+        plugins: [rollupImportMapPlugin('http://localhost/', err)],
     }
     
     t.rejects(rollup(options), /Unexpected end of JSON input/);
+    t.end();
+});
+
+tap.test('plugin() - first argument is not a string or a URL object', async (t) => {
+    t.throws(() => {
+        rollupImportMapPlugin(777);
+    }, new TypeError('First argument must be a URL object or a valid absolute URL as a string'), 'should throw a TypeError');
+
+    t.end();
+});
+
+tap.test('plugin() - first argument is a legal URL as a String', async (t) => {
+    t.doesNotThrow(() => {
+        rollupImportMapPlugin('http://localhost');
+    }, 'should not throw');
+
+    t.end();
+});
+
+tap.test('plugin() - first argument is a URL object', async (t) => {
+    t.doesNotThrow(() => {
+        rollupImportMapPlugin(new URL('http://localhost'), []);
+    }, 'should not throw');
+
     t.end();
 });

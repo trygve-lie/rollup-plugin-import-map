@@ -6,13 +6,8 @@
  */
 'use strict'
 exports[`test/plugin.js TAP plugin() - array of import map maps - should replace import statements with CDN URLs > non bare imports 1`] = `
-import { firstElement } from 'https://cdn.eik.dev/something/v666';
+import { replaceElement, firstElement } from 'https://cdn.eik.dev/something/v666';
 import { html } from 'https://cdn.eik.dev/lit-element/v2';
-
-function replaceElement(target, element) {
-    target.replaceWith(element);
-    return element;
-}
 
 function view(items) {
     return html\`<p>Hello \${items[0]}!</p>\`;
@@ -80,7 +75,7 @@ render();
 `
 
 exports[`test/plugin.js TAP plugin() - import map maps address to a relative path - should replace import statement with relative path > non bare imports 1`] = `
-import { html } from './lit-element/v2';
+import { html } from 'http://localhost/lit-element/v2';
 
 function replaceElement(target, element) {
     target.replaceWith(element);
@@ -147,13 +142,8 @@ start();
 `
 
 exports[`test/plugin.js TAP plugin() - import map maps non bare imports - should replace import statement with CDN URL > non bare imports 1`] = `
-import { firstElement } from 'https://cdn.eik.dev/something/v666';
+import { replaceElement, firstElement } from 'https://cdn.eik.dev/something/v666';
 import { html } from 'https://cdn.eik.dev/lit-element/v2';
-
-function replaceElement(target, element) {
-    target.replaceWith(element);
-    return element;
-}
 
 function view(items) {
     return html\`<p>Hello \${items[0]}!</p>\`;
@@ -297,13 +287,8 @@ start();
 `
 
 exports[`test/plugin.js TAP plugin() - input is a filepath to a map file and an inline map - should load map and replace import statements with CDN URLs > non bare imports 1`] = `
-import { firstElement } from 'https://cdn.eik.dev/something/v666';
+import { replaceElement, firstElement } from 'https://cdn.eik.dev/something/v666';
 import { html } from 'https://cdn.eik.dev/lit-element/v2';
-
-function replaceElement(target, element) {
-    target.replaceWith(element);
-    return element;
-}
 
 function view(items) {
     return html\`<p>Hello \${items[0]}!</p>\`;

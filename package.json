@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-import-map",
-  "version": "2.2.0",
+  "version": "4.0.0-next.1",
   "description": "Rollup plugin to apply import map mappings to a build",
   "type": "module",
   "main": "./lib/plugin.js",
@@ -57,5 +57,9 @@
     "rollup": "3.29.5",
     "semantic-release": "24.2.7",
     "tap": "16.03.0"
+  },
+  "dependencies": {
+    "@import-maps/resolve": "1.0.1",
+    "deepmerge": "4.2.2"
   }
 }
